@@ -1,0 +1,209 @@
+/* Styles for AI Writing Assistant content script */
+
+.ai-writing-assistant-box {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  background: white;
+  border: 2px solid #4A90E2;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  z-index: 999999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.ai-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.ai-close-btn:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.ai-loading {
+  text-align: center;
+  padding: 20px;
+}
+
+.ai-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #4A90E2;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.ai-result h3 {
+  margin: 0 0 15px 0;
+  color: #4A90E2;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.ai-result h4 {
+  margin: 15px 0 10px 0;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.ai-text-box {
+  background: #f8f9fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 12px;
+  margin: 10px 0;
+  position: relative;
+}
+
+.ai-text-box p {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.ai-copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #4A90E2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.ai-copy-btn:hover {
+  background: #357ABD;
+}
+
+.ai-copy-btn:active {
+  background: #2868A6;
+}
+
+.ai-issues {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 6px;
+  padding: 12px;
+  margin: 10px 0;
+}
+
+.ai-suggestions {
+  margin-top: 10px;
+}
+
+.ai-suggestion {
+  background: white;
+  border: 1px solid #e1e4e8;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 8px 0;
+  font-size: 13px;
+}
+
+.ai-original {
+  background: #ffebee;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.ai-improved {
+  background: #e8f5e9;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.ai-message {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+}
+
+.ai-success {
+  color: #28a745;
+  font-weight: 500;
+  margin: 10px 0;
+}
+
+.ai-info {
+  color: #666;
+  font-size: 13px;
+  margin: 5px 0;
+}
+
+.ai-error {
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  padding: 15px;
+  color: #721c24;
+}
+
+.ai-error h3 {
+  color: #721c24;
+  margin: 0 0 10px 0;
+}
+
+.ai-privacy-note {
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #e1e4e8;
+}
+
+/* Scrollbar styling */
+.ai-writing-assistant-box::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ai-writing-assistant-box::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.ai-writing-assistant-box::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.ai-writing-assistant-box::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
