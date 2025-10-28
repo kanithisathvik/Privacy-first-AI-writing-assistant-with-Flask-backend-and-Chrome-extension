@@ -7,23 +7,43 @@ import os
 import re
 import logging
 from typing import Dict, Optional
-from langdetect import detect
-import nltk
-from nltk.tokenize import sent_tokenize
-from nltk.corpus import stopwords
-
-# Download NLTK data if not present
-try:
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    nltk.download('punkt', quiet=True)
-
-try:
-    nltk.data.find('corpora/stopwords')
-except LookupError:
-    nltk.download('stopwords', quiet=True)
 
 logger = logging.getLogger(__name__)
+
+# Try to import optional dependencies
+try:
+    from langdetect import detect
+    LANGDETECT_AVAILABLE = True
+except ImportError:
+    LANGDETECT_AVAILABLE = False
+    logger.warning("langdetect not available")
+
+try:
+    import nltk
+    from nltk.tokenize import sent_tokenize
+    from nltk.corpus import stopwords
+    NLTK_AVAILABLE = True
+    
+    # Download NLTK data if not present (skip in serverless)
+    if not os.environ.get('VERCEL'):
+        try:
+            nltk.data.find('tokenizers/punkt')
+        except LookupError:
+            try:
+                nltk.download('punkt', quiet=True)
+            except:
+                pass
+        
+        try:
+            nltk.data.find('corpora/stopwords')
+        except LookupError:
+            try:
+                nltk.download('stopwords', quiet=True)
+            except:
+                pass
+except ImportError:
+    NLTK_AVAILABLE = False
+    logger.warning("NLTK not available")
 
 
 class AIProcessor:
@@ -34,7 +54,7 @@ class AIProcessor:
     
     def __init__(self):
         self.gemini_available = False
-        self.api_key = os.getenv('GOOGLE_API_KEY')
+        self.api_key = os.getenv('GOOGLE_API_KEY') or os.getenv('GEMINI_API_KEY')
         
         if self.api_key:
             try:
@@ -377,7 +397,12 @@ Quiz questions (JSON):"""
     
     def _generate_simple_quiz(self, text: str, num_questions: int) -> list:
         """Generate basic quiz questions from text"""
-        sentences = sent_tokenize(text)
+        # Fallback sentence splitting if NLTK not available
+        if NLTK_AVAILABLE:
+            sentences = sent_tokenize(text)
+        else:
+            sentences = text.split('. ')
+        
         questions = []
         
         for i, sentence in enumerate(sentences[:num_questions]):
@@ -401,12 +426,34 @@ Quiz questions (JSON):"""
     def _extractive_summarize(self, text: str, length: str = 'medium') -> str:
         """Extractive summarization using sentence scoring"""
         try:
-            sentences = sent_tokenize(text)
+            # Fallback sentence splitting if NLTK not available
+            if NLTK_AVAILABLE:
+                sentences = sent_tokenize(text)
+            else:
+                sentences = text.split('. ')
+            
             if len(sentences) <= 3:
                 return text
             
             # Score sentences by word frequency and position
-            stop_words = set(stopwords.words('english'))
+            if NLTK_AVAILABLE:
+                stop_words = set(stopwords.words('english'))
+            else:
+                # Basic English stop words
+                stop_words = {'a', 'an', 'the', 'is', 'are', 'was', 'were', 'be', 'been', 
+                             'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 
+                             'would', 'could', 'should', 'may', 'might', 'must', 'can',
+                             'of', 'at', 'by', 'for', 'with', 'about', 'against', 'between',
+                             'into', 'through', 'during', 'before', 'after', 'above', 'below',
+                             'to', 'from', 'up', 'down', 'in', 'out', 'on', 'off', 'over',
+                             'under', 'again', 'further', 'then', 'once', 'here', 'there',
+                             'when', 'where', 'why', 'how', 'all', 'both', 'each', 'few',
+                             'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not',
+                             'only', 'own', 'same', 'so', 'than', 'too', 'very', 's', 't',
+                             'just', 'don', 'now', 'and', 'but', 'or', 'if', 'because', 'as',
+                             'until', 'while', 'that', 'this', 'these', 'those', 'i', 'you',
+                             'he', 'she', 'it', 'we', 'they', 'them', 'their', 'what', 'which'}
+            
             word_freq = {}
             
             for sentence in sentences:
