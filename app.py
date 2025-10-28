@@ -95,7 +95,8 @@ def analyze_text():
         return jsonify(response)
     
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        app.logger.error(f"Error in analyze endpoint: {str(e)}")
+        return jsonify({'error': 'An error occurred during text analysis. Please try again.'}), 500
 
 @app.route('/api/grammar', methods=['POST'])
 def check_grammar_endpoint():
@@ -115,7 +116,8 @@ def check_grammar_endpoint():
         })
     
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        app.logger.error(f"Error in grammar endpoint: {str(e)}")
+        return jsonify({'error': 'An error occurred during grammar checking. Please try again.'}), 500
 
 @app.route('/api/readability', methods=['POST'])
 def readability_endpoint():
@@ -132,7 +134,8 @@ def readability_endpoint():
         return jsonify(readability)
     
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        app.logger.error(f"Error in readability endpoint: {str(e)}")
+        return jsonify({'error': 'An error occurred during readability analysis. Please try again.'}), 500
 
 def check_grammar(text):
     """Check grammar and spelling using LanguageTool or fallback"""
@@ -240,9 +243,10 @@ def analyze_readability(text):
             'difficulty': difficulty
         }
     except Exception as e:
+        app.logger.error(f"Error in readability analysis: {str(e)}")
         return {
             'error': 'Could not analyze readability',
-            'message': str(e)
+            'message': 'Text may be too short or contain invalid characters'
         }
 
 def calculate_statistics(text):
@@ -358,4 +362,8 @@ def analyze_tone(text):
 if __name__ == '__main__':
     print("Starting Privacy-First AI Writing Assistant Backend...")
     print("All processing is done locally. No data is logged or sent to external servers.")
+    print("")
+    print("⚠️  WARNING: Debug mode is enabled for development purposes.")
+    print("⚠️  For production use, set debug=False and use a production WSGI server.")
+    print("")
     app.run(debug=True, host='127.0.0.1', port=5000)
