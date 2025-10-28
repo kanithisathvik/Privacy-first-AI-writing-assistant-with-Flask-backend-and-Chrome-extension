@@ -10,14 +10,38 @@
 
 ## 🌟 Features
 
-- **📝 Smart Summarization** - Condense long text into key points
+### Core AI Actions
+- **📝 Smart Summarization** - Condense long text into key points with adjustable length
 - **✍️ Intelligent Rewriting** - Adjust tone (formal/neutral/friendly) and reading level
 - **✅ Advanced Proofreading** - Fix grammar, spelling, and punctuation
 - **🌐 Multi-Language Translation** - Translate to 10+ languages
-- **🔒 Privacy-First** - Your data stays secure (optional local processing)
+- **🎓 ELI5 Mode** - Explain complex topics in simple terms
+- **� Side-by-Side Translation** - View aligned source and translated text
+- **🎯 Quiz Generation** - Create learning questions from any text
+
+### User Experience
+- **⚡ Quick Actions Toolbar** - Floating toolbar appears on text selection anywhere
+- **⌨️ Keyboard Shortcuts** - Fast access with Ctrl+Shift+[S/R/P/T]
+- **📂 Drag & Drop** - Upload .txt, .md, .pdf, .docx files
+- **💾 Multi-Format Export** - Export as TXT, Markdown, JSON, or PDF
+
+### Analytics & Gamification
+- **📊 Analytics Dashboard** - Track usage, time saved, and productivity
+- **🔥 Streak Tracking** - Build habits with daily usage streaks
+- **⭐ Level System** - Earn XP and level up with each action
+- **🏆 Leaderboard** - See top contributors (anonymized)
+
+### Privacy & Security
+- **�🔒 Privacy-First** - Your data stays secure (optional local processing)
+- **🔐 Optional Authentication** - Firebase integration for cross-device sync
+- **🌐 No Login Required** - Use all features without creating an account
+
+### Platform Support
+- **🌐 Web Application** - Full-featured web interface at `/dashboard`
 - **⚡ Chrome Extension** - Access AI tools on any webpage
-- **🌐 Web Application** - Full-featured web interface
-- **🔥 Firebase Integration** - Optional authentication for cross-device preferences
+- **📱 Responsive Design** - Works on desktop, tablet, and mobile
+
+> **See [FEATURES.md](FEATURES.md) for complete feature documentation**
 
 ---
 
