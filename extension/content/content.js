@@ -57,9 +57,11 @@ function showResult(type, result) {
   const box = createResultBox();
   
   let content = '';
+  let textToCopy = '';
   
   switch (type) {
     case 'grammar':
+      textToCopy = result.has_issues ? result.corrected : '';
       content = `
         <div class="ai-result">
           <h3>Grammar Check Results</h3>
@@ -84,7 +86,7 @@ function showResult(type, result) {
               <h4>Corrected Text:</h4>
               <div class="ai-text-box">
                 <p>${escapeHtml(result.corrected)}</p>
-                <button class="ai-copy-btn" onclick="navigator.clipboard.writeText('${result.corrected.replace(/'/g, "\\'")}')">Copy</button>
+                <button class="ai-copy-btn" data-copy-text>Copy</button>
               </div>
             </div>
           ` : ''}
@@ -93,37 +95,40 @@ function showResult(type, result) {
       break;
       
     case 'rewrite':
+      textToCopy = result.text;
       content = `
         <div class="ai-result">
           <h3>Rewritten Text (${result.style})</h3>
           <div class="ai-text-box">
             <p>${escapeHtml(result.text)}</p>
-            <button class="ai-copy-btn" onclick="navigator.clipboard.writeText('${result.text.replace(/'/g, "\\'")}')">Copy</button>
+            <button class="ai-copy-btn" data-copy-text>Copy</button>
           </div>
         </div>
       `;
       break;
       
     case 'summarize':
+      textToCopy = result.text;
       content = `
         <div class="ai-result">
           <h3>Summary</h3>
           <div class="ai-text-box">
             <p>${escapeHtml(result.text)}</p>
-            <button class="ai-copy-btn" onclick="navigator.clipboard.writeText('${result.text.replace(/'/g, "\\'")}')">Copy</button>
+            <button class="ai-copy-btn" data-copy-text>Copy</button>
           </div>
         </div>
       `;
       break;
       
     case 'improve':
+      textToCopy = result.text;
       content = `
         <div class="ai-result">
           <h3>Improved Text</h3>
           <p class="ai-info">Applied ${result.fixes} grammar fixes and style improvements</p>
           <div class="ai-text-box">
             <p>${escapeHtml(result.text)}</p>
-            <button class="ai-copy-btn" onclick="navigator.clipboard.writeText('${result.text.replace(/'/g, "\\'")}')">Copy</button>
+            <button class="ai-copy-btn" data-copy-text>Copy</button>
           </div>
         </div>
       `;
@@ -133,6 +138,25 @@ function showResult(type, result) {
   content += '<p class="ai-privacy-note">🔒 Privacy-first: Your text was processed locally and not stored</p>';
   
   box.innerHTML += content;
+  
+  // Add event listener for copy button
+  const copyBtn = box.querySelector('[data-copy-text]');
+  if (copyBtn && textToCopy) {
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const originalText = copyBtn.textContent;
+        copyBtn.textContent = '✓ Copied!';
+        setTimeout(() => {
+          copyBtn.textContent = originalText;
+        }, 2000);
+      }).catch(() => {
+        copyBtn.textContent = '✗ Failed';
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+        }, 2000);
+      });
+    });
+  }
 }
 
 function showError(error) {
