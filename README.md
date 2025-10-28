@@ -1,0 +1,1 @@
+# Privacy-first-AI-writing-assistant-with-Flask-backend-and-Chrome-extension
