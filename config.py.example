@@ -1,0 +1,34 @@
+# Configuration for Privacy-First AI Writing Assistant
+
+# Flask Configuration
+FLASK_HOST = '127.0.0.1'
+FLASK_PORT = 5000
+FLASK_DEBUG = True
+
+# CORS Configuration
+# Only allow requests from Chrome extension and localhost
+ALLOWED_ORIGINS = ['chrome-extension://*', 'http://127.0.0.1:*', 'http://localhost:*']
+
+# Analysis Settings
+MAX_TEXT_LENGTH = 100000  # Maximum characters to analyze
+DEFAULT_LANGUAGE = 'en-US'
+
+# Grammar Checker Settings
+GRAMMAR_CHECKER_ENABLED = True
+USE_FALLBACK_GRAMMAR = True  # Use fallback if LanguageTool fails
+
+# Readability Settings
+READABILITY_ENABLED = True
+
+# Privacy Settings
+LOG_USER_DATA = False  # NEVER enable this - privacy first!
+STORE_ANALYSIS_HISTORY = False  # NEVER enable this - privacy first!
+SEND_TELEMETRY = False  # NEVER enable this - privacy first!
+
+# Performance Settings
+CACHE_ENABLED = False  # Caching disabled for privacy
+REQUEST_TIMEOUT = 30  # Seconds
+
+# UI Settings (for Chrome extension)
+MAX_SUGGESTIONS_DISPLAY = 10
+MAX_GRAMMAR_ISSUES_DISPLAY = 10
