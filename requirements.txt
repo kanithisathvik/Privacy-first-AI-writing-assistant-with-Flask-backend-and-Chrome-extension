@@ -1,0 +1,29 @@
+# Flask
+Flask==3.0.0
+Flask-CORS==4.0.0
+Werkzeug==3.0.1
+
+# Firebase
+firebase-admin==6.3.0
+pyrebase4==4.7.1
+
+# AI/ML (Google Generative AI as alternative to Chrome AI)
+google-generativeai==0.3.2
+transformers==4.36.0
+torch==2.1.2
+
+# Text Processing
+nltk==3.8.1
+spacy==3.7.2
+langdetect==1.0.9
+
+# API & Data
+requests==2.31.0
+python-dotenv==1.0.0
+
+# Production Server
+gunicorn==21.2.0
+eventlet==0.33.3
+
+# Development
+python-dateutil==2.8.2

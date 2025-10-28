@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy - ContextGuard{% endblock %}
+
+{% block content %}
+<section class="privacy-page">
+    <div class="container">
+        <h1>Privacy Policy</h1>
+        <p><em>Last updated: October 28, 2025</em></p>
+        
+        <div class="privacy-content">
+            <h2>Data Collection</h2>
+            <p>ContextGuard collects minimal data:</p>
+            <ul>
+                <li>Optional: Email address if you choose to sign in with Firebase</li>
+                <li>User preferences (tone, reading level, target language)</li>
+                <li>No text content is stored or logged</li>
+            </ul>
+
+            <h2>Data Processing</h2>
+            <p>Text you process is:</p>
+            <ul>
+                <li>Sent to Google's Generative AI API for processing</li>
+                <li>Not stored on our servers</li>
+                <li>Not used for training AI models</li>
+                <li>Processed in-memory and discarded immediately</li>
+            </ul>
+
+            <h2>Chrome Extension</h2>
+            <p>The Chrome extension:</p>
+            <ul>
+                <li>Runs entirely client-side when using Chrome's built-in AI</li>
+                <li>Only requires permissions for page interaction</li>
+                <li>Does not track your browsing history</li>
+            </ul>
+
+            <h2>Your Rights</h2>
+            <p>You have the right to:</p>
+            <ul>
+                <li>Delete your account and data at any time</li>
+                <li>Request a copy of your data</li>
+                <li>Opt-out of any data collection</li>
+            </ul>
+
+            <h2>Contact</h2>
+            <p>For privacy concerns, contact us at: privacy@contextguard.com</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

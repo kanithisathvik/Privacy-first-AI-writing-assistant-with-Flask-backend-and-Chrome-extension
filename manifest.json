@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "ContextGuard",
+  "version": "1.0.0",
+  "description": "Privacy-first AI assistant that runs entirely client-side with Chrome's built-in AI (Gemini Nano). Summarize, rewrite, proofread, and translate without sending data to external servers.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "contextMenus",
+    "sidePanel"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "src/worker/serviceWorker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "src/content/domSelection.js",
+        "src/content/overlayUI.js",
+        "src/content/contentScript.js"
+      ],
+      "css": ["src/content/overlay.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "ContextGuard - AI Writing Assistant",
+    "default_popup": "public/popup.html"
+  },
+  "side_panel": {
+    "default_path": "public/sidepanel.html"
+  },
+  "options_page": "public/options.html",
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

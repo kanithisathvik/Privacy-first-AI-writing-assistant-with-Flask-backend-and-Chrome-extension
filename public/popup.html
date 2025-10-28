@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ContextGuard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 320px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .container {
+      padding: 24px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .logo {
+      font-size: 48px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .info {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .info strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .action-btn {
+      width: 100%;
+      padding: 14px;
+      background: white;
+      color: #667eea;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: inherit;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .action-btn .icon {
+      font-size: 18px;
+    }
+
+    .footer {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: center;
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .footer a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">⚡</div>
+      <h1>ContextGuard</h1>
+      <p class="subtitle">Privacy-first AI Assistant</p>
+    </div>
+
+    <div class="info">
+      <strong>🔒 100% Local Processing</strong>
+      Your data never leaves your device. All AI operations run using Chrome's built-in Gemini Nano.
+    </div>
+
+    <div class="actions">
+      <button class="action-btn" id="summarizeBtn">
+        <span class="icon">📝</span>
+        <span>Summarize Page</span>
+      </button>
+      <button class="action-btn" id="rewriteBtn">
+        <span class="icon">✍️</span>
+        <span>Rewrite Selection</span>
+      </button>
+      <button class="action-btn" id="proofreadBtn">
+        <span class="icon">✅</span>
+        <span>Proofread Text</span>
+      </button>
+      <button class="action-btn" id="translateBtn">
+        <span class="icon">🌐</span>
+        <span>Translate</span>
+      </button>
+      <button class="action-btn" id="optionsBtn">
+        <span class="icon">⚙️</span>
+        <span>Settings</span>
+      </button>
+    </div>
+
+    <div class="footer">
+      <p>Look for the ⚡ button on any page</p>
+      <a href="#" id="learnMore">Learn More</a>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

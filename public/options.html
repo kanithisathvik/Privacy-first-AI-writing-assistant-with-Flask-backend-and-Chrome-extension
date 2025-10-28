@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ContextGuard - Options</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <h1>ContextGuard</h1>
+      </div>
+      <p class="subtitle">Privacy-first AI assistant running entirely on your device</p>
+    </header>
+
+    <main>
+      <section class="section">
+        <h2>🎨 Writing Tone</h2>
+        <p class="section-description">Choose the default tone for text rewriting</p>
+        
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="tone" value="formal">
+            <div class="radio-content">
+              <strong>Formal</strong>
+              <span>Professional and polished writing style</span>
+            </div>
+          </label>
+
+          <label class="radio-label">
+            <input type="radio" name="tone" value="neutral" checked>
+            <div class="radio-content">
+              <strong>Neutral</strong>
+              <span>Balanced and clear communication</span>
+            </div>
+          </label>
+
+          <label class="radio-label">
+            <input type="radio" name="tone" value="friendly">
+            <div class="radio-content">
+              <strong>Friendly</strong>
+              <span>Casual and approachable tone</span>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>📚 Reading Level</h2>
+        <p class="section-description">Adjust complexity for your audience</p>
+        
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="readingLevel" value="basic">
+            <div class="radio-content">
+              <strong>Basic</strong>
+              <span>Simple words and short sentences</span>
+            </div>
+          </label>
+
+          <label class="radio-label">
+            <input type="radio" name="readingLevel" value="intermediate" checked>
+            <div class="radio-content">
+              <strong>Intermediate</strong>
+              <span>Clear but comprehensive language</span>
+            </div>
+          </label>
+
+          <label class="radio-label">
+            <input type="radio" name="readingLevel" value="advanced">
+            <div class="radio-content">
+              <strong>Advanced</strong>
+              <span>Sophisticated vocabulary and concepts</span>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>🌐 Translation Language</h2>
+        <p class="section-description">Default target language for translations</p>
+        
+        <div class="select-wrapper">
+          <select id="targetLanguage" name="targetLanguage">
+            <option value="es">Spanish (Español)</option>
+            <option value="fr">French (Français)</option>
+            <option value="de">German (Deutsch)</option>
+            <option value="it">Italian (Italiano)</option>
+            <option value="pt">Portuguese (Português)</option>
+            <option value="ja">Japanese (日本語)</option>
+            <option value="zh">Chinese (中文)</option>
+            <option value="ko">Korean (한국어)</option>
+            <option value="ru">Russian (Русский)</option>
+            <option value="ar">Arabic (العربية)</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="section info-section">
+        <h2>🔒 Privacy & AI Status</h2>
+        <div class="info-box">
+          <p>
+            <strong>Your data never leaves your device.</strong>
+            ContextGuard uses Chrome's built-in AI (Gemini Nano) which runs entirely locally.
+          </p>
+          <div class="status-indicator">
+            <span class="status-dot" id="aiStatus"></span>
+            <span id="aiStatusText">Checking AI availability...</span>
+          </div>
+          <p class="info-note">
+            <strong>Note:</strong> Chrome's AI features require Chrome 128+ and may need to be enabled in
+            <code>chrome://flags</code>. Look for "Prompt API for Gemini Nano" and related flags.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>ℹ️ About</h2>
+        <div class="about-content">
+          <p><strong>Version:</strong> 1.0.0</p>
+          <p><strong>Built with:</strong> Chrome's Built-in AI APIs</p>
+          <p>
+            <a href="https://github.com/yourusername/contextguard" target="_blank">GitHub Repository</a> •
+            <a href="https://github.com/yourusername/contextguard/issues" target="_blank">Report Issue</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <button id="saveBtn" class="save-btn">Save Settings</button>
+      <div class="save-status" id="saveStatus"></div>
+    </footer>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

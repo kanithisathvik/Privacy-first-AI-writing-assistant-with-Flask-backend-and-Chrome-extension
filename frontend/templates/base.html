@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ContextGuard - Privacy-First AI Assistant{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icons/icon48.png') }}">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    {% block extra_css %}{% endblock %}
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Privacy-first AI writing assistant. Summarize, rewrite, proofread, and translate text without sending your data to external servers.">
+    <meta name="keywords" content="AI assistant, privacy, writing tool, summarize, rewrite, proofread, translate">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="ContextGuard - Privacy-First AI Assistant">
+    <meta property="og:description" content="AI-powered writing assistant that respects your privacy">
+    <meta property="og:type" content="website">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">⚡</span>
+                <span class="brand-name">ContextGuard</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/dashboard" class="nav-link">Dashboard</a>
+                <a href="/extension" class="nav-link">Extension</a>
+                <a href="/about" class="nav-link">About</a>
+                
+                <div class="nav-auth" id="navAuth">
+                    <button class="btn btn-outline" id="signInBtn">Sign In</button>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>⚡ ContextGuard</h3>
+                    <p>Privacy-first AI assistant that works entirely on your device or our secure servers.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="/dashboard">Try Now</a></li>
+                        <li><a href="/extension">Chrome Extension</a></li>
+                        <li><a href="/about">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="https://github.com/yourusername/contextguard" target="_blank">GitHub</a></li>
+                        <li><a href="mailto:support@contextguard.com">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 ContextGuard. All rights reserved.</p>
+                <p class="privacy-badge">🔒 Your data stays private</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase Config -->
+    <script>
+        // Firebase configuration (replace with your config)
+        const firebaseConfig = {
+            apiKey: "{{ config.get('FIREBASE_API_KEY', '') }}",
+            authDomain: "{{ config.get('FIREBASE_AUTH_DOMAIN', '') }}",
+            projectId: "{{ config.get('FIREBASE_PROJECT_ID', '') }}",
+            storageBucket: "{{ config.get('FIREBASE_STORAGE_BUCKET', '') }}",
+            messagingSenderId: "{{ config.get('FIREBASE_MESSAGING_SENDER_ID', '') }}",
+            appId: "{{ config.get('FIREBASE_APP_ID', '') }}"
+        };
+        
+        // Initialize Firebase if config is provided
+        if (firebaseConfig.apiKey) {
+            firebase.initializeApp(firebaseConfig);
+        }
+    </script>
+    
+    <!-- Main JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

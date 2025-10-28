@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Chrome Extension - ContextGuard{% endblock %}
+
+{% block content %}
+<section class="extension-page">
+    <div class="container">
+        <div class="extension-hero">
+            <h1>ContextGuard Chrome Extension</h1>
+            <p>Powerful AI assistant available on every webpage</p>
+        </div>
+
+        <div class="extension-download">
+            <div class="download-card">
+                <h2>Download Extension</h2>
+                <p>Install ContextGuard and access AI writing tools on any webpage</p>
+                <a href="/static/contextguard-extension.zip" class="btn btn-primary btn-large" download>
+                    Download for Chrome
+                </a>
+                <p class="download-note">Version 1.0.0 • Chrome 128+ Required</p>
+            </div>
+        </div>
+
+        <div class="installation-steps">
+            <h2>Installation Instructions</h2>
+            <div class="steps-list">
+                <div class="install-step">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h3>Download & Extract</h3>
+                        <p>Download the extension ZIP file and extract it to a folder on your computer.</p>
+                    </div>
+                </div>
+
+                <div class="install-step">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h3>Open Chrome Extensions</h3>
+                        <p>Go to <code>chrome://extensions/</code> in your Chrome browser.</p>
+                    </div>
+                </div>
+
+                <div class="install-step">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h3>Enable Developer Mode</h3>
+                        <p>Toggle "Developer mode" in the top right corner.</p>
+                    </div>
+                </div>
+
+                <div class="install-step">
+                    <div class="step-num">4</div>
+                    <div class="step-content">
+                        <h3>Load Unpacked</h3>
+                        <p>Click "Load unpacked" and select the extracted folder.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="extension-features">
+            <h2>Extension Features</h2>
+            <ul>
+                <li>⚡ Floating button on every page</li>
+                <li>📝 Select text and summarize instantly</li>
+                <li>✍️ Rewrite with adjustable tone</li>
+                <li>✅ Quick proofreading</li>
+                <li>🌐 Translate to 10+ languages</li>
+                <li>🔒 100% local processing (Chrome AI)</li>
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}

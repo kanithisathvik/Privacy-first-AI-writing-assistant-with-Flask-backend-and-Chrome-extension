@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ContextGuard - Side Panel</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: white;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .header h1 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .header p {
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .welcome {
+      text-align: center;
+      padding: 40px 20px;
+      color: #666;
+    }
+
+    .welcome .icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+    }
+
+    .welcome h2 {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .welcome p {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .action-card {
+      padding: 16px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+    }
+
+    .action-card:hover {
+      background: #667eea;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .action-card .icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .action-card .label {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .info-box {
+      background: #f0f7ff;
+      border-left: 3px solid #667eea;
+      padding: 16px;
+      margin-top: 24px;
+      border-radius: 4px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .info-box strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #667eea;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>⚡ ContextGuard</h1>
+    <p>AI Assistant - Privacy First</p>
+  </div>
+
+  <div class="content">
+    <div class="welcome">
+      <div class="icon">👋</div>
+      <h2>Welcome to ContextGuard</h2>
+      <p>Select text on any page and click the ⚡ button, or choose an action below:</p>
+
+      <div class="actions-grid">
+        <div class="action-card" data-action="summarize">
+          <div class="icon">📝</div>
+          <div class="label">Summarize</div>
+        </div>
+        <div class="action-card" data-action="rewrite">
+          <div class="icon">✍️</div>
+          <div class="label">Rewrite</div>
+        </div>
+        <div class="action-card" data-action="proofread">
+          <div class="icon">✅</div>
+          <div class="label">Proofread</div>
+        </div>
+        <div class="action-card" data-action="translate">
+          <div class="icon">🌐</div>
+          <div class="label">Translate</div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <strong>🔒 Your Privacy Matters</strong>
+        All processing happens locally using Chrome's built-in AI (Gemini Nano). Your data never leaves your device or goes to external servers.
+      </div>
+    </div>
+  </div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>
