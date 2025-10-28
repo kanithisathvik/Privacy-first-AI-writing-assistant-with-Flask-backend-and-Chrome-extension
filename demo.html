@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Writing Assistant - Test Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .section p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #e1e4e8;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            margin-bottom: 10px;
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .sample-text {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e1e4e8;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .sample-text:hover {
+            background: #f0f0f0;
+        }
+
+        .sample-text strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .instructions {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .instructions h3 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .instructions li {
+            margin-bottom: 5px;
+        }
+
+        .privacy-note {
+            background: #e8f5e9;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .privacy-note h3 {
+            color: #2d5016;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .privacy-note p {
+            color: #2d5016;
+            line-height: 1.6;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔒 AI Writing Assistant - Test Page</h1>
+        <p class="subtitle">Use this page to test the Chrome extension features</p>
+
+        <div class="instructions">
+            <h3>📋 How to Use</h3>
+            <ol>
+                <li>Make sure the Flask backend is running on <code>http://127.0.0.1:5000</code></li>
+                <li>Install the Chrome extension from the <code>extension</code> folder</li>
+                <li>Select any text below (or type in the text areas)</li>
+                <li>Right-click and choose an AI action from the context menu</li>
+                <li>Or click the extension icon to use the popup interface</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>📝 Test Text Area</h2>
+            <p>Type or paste text here, then select it and right-click to use the extension:</p>
+            <textarea placeholder="i gonna write something here with lots of errors and stuff. this sentance aint correct neither. "></textarea>
+        </div>
+
+        <div class="section">
+            <h2>✍️ Sample Texts to Test</h2>
+            <p>Select any of these sample texts and use the context menu:</p>
+
+            <div class="sample-text">
+                <strong>Grammar Issues:</strong>
+                this is a test sentance with i making lots of errors  .the punctuation is off and capitalization too
+            </div>
+
+            <div class="sample-text">
+                <strong>Informal Text (try "Rewrite Formal"):</strong>
+                hey gonna go to the store kinda quickly cause i wanna get some stuff done. its gonna be awesome
+            </div>
+
+            <div class="sample-text">
+                <strong>Formal Text (try "Rewrite Casual"):</strong>
+                I am going to proceed to the establishment at the earliest possible convenience. I would appreciate it if you could accompany me on this endeavor.
+            </div>
+
+            <div class="sample-text">
+                <strong>Wordy Text (try "Rewrite Concise"):</strong>
+                I just wanted to say that I really think that it's very important to basically understand that we should actually focus on what's really essential here.
+            </div>
+
+            <div class="sample-text">
+                <strong>Long Text (try "Summarize"):</strong>
+                The Privacy-first AI Writing Assistant is a powerful tool designed to help you improve your writing. It includes multiple features such as grammar checking, text rewriting in different styles, and summarization capabilities. The tool is built with privacy in mind, ensuring that all your text is processed locally on your machine. No data is ever sent to external servers, logged, or stored anywhere. This makes it perfect for sensitive documents or personal writing. The extension integrates seamlessly with Chrome and provides an easy-to-use interface through both a popup and context menu options.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>✨ Available Features</h2>
+            <p>Right-click on selected text to access these features:</p>
+            <ul style="margin-left: 20px; color: #333; line-height: 1.8;">
+                <li><strong>Check Grammar</strong> - Find and fix grammar errors</li>
+                <li><strong>Improve Text</strong> - Apply grammar fixes and style improvements</li>
+                <li><strong>Rewrite (Formal)</strong> - Make text more formal</li>
+                <li><strong>Rewrite (Casual)</strong> - Make text more casual</li>
+                <li><strong>Rewrite (Concise)</strong> - Remove filler words</li>
+                <li><strong>Summarize</strong> - Generate a summary</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>💬 Another Text Area</h2>
+            <p>Practice here with your own text:</p>
+            <textarea placeholder="Type your text here and test the extension...
+
+Example: gonna check if this works kinda good"></textarea>
+        </div>
+
+        <div class="privacy-note">
+            <h3>🔒 Privacy Guarantee</h3>
+            <p>
+                All text processing happens locally on your machine. Your text is never sent to external servers, 
+                logged, or stored anywhere. This extension is completely privacy-first and open source - 
+                you can verify the code yourself!
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Make sample texts clickable to auto-select
+        document.querySelectorAll('.sample-text').forEach(element => {
+            element.addEventListener('click', function() {
+                const range = document.createRange();
+                range.selectNodeContents(this);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+            });
+        });
+    </script>
+</body>
+</html>
