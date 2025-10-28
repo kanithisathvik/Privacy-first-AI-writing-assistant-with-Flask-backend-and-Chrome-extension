@@ -22,8 +22,12 @@ We welcome feature suggestions! Please open an issue with:
 ### Code Contributions
 
 1. **Fork the repository**
+   - Go to the repository on GitHub
+   - Click the "Fork" button in the top-right corner
+   - Clone your fork:
    ```bash
-   git fork https://github.com/kanithisathvik/Privacy-first-AI-writing-assistant-with-Flask-backend-and-Chrome-extension.git
+   git clone https://github.com/YOUR-USERNAME/Privacy-first-AI-writing-assistant-with-Flask-backend-and-Chrome-extension.git
+   cd Privacy-first-AI-writing-assistant-with-Flask-backend-and-Chrome-extension
    ```
 
 2. **Create a feature branch**
