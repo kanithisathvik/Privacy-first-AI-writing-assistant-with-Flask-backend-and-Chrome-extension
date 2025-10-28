@@ -74,6 +74,25 @@ def privacy():
     """Privacy policy page"""
     return render_template('privacy.html')
 
+@app.route('/analytics')
+def analytics_page():
+    """Analytics dashboard page"""
+    return render_template('analytics.html')
+
+@app.route('/api/analytics/user/<user_id>')
+def get_user_analytics(user_id):
+    """Get analytics for specific user"""
+    from backend.analytics import analytics_tracker
+    stats = analytics_tracker.get_user_stats(user_id)
+    return jsonify(stats)
+
+@app.route('/api/analytics/leaderboard')
+def get_leaderboard():
+    """Get global leaderboard"""
+    from backend.analytics import analytics_tracker
+    leaderboard = analytics_tracker.get_leaderboard(limit=10)
+    return jsonify({'leaderboard': leaderboard})
+
 # Error handlers
 @app.errorhandler(404)
 def not_found(error):

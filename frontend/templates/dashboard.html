@@ -38,22 +38,30 @@
         <!-- Main Workspace -->
         <div class="workspace">
             <!-- Input Section -->
-            <div class="workspace-panel">
-                <div class="panel-header">
-                    <h3>Input Text</h3>
+        <!-- Input Panel -->
+        <div class="workspace-panel">
+            <div class="panel-header">
+                <h3>Input</h3>
+                <div class="panel-actions">
+                    <span class="char-count" id="charCount">0 / 10000</span>
                     <button class="btn-icon" id="clearInput" title="Clear">🗑️</button>
-                </div>
-                <textarea 
-                    id="inputText" 
-                    placeholder="Paste or type your text here..." 
-                    rows="12"
-                ></textarea>
-                <div class="panel-footer">
-                    <span class="char-count" id="charCount">0 characters</span>
+                    <button class="btn-icon" id="uploadFile" title="Upload File">📁</button>
                 </div>
             </div>
-
-            <!-- Output Section -->
+            <textarea 
+                id="inputText" 
+                placeholder="Paste or type your text here... Or drag and drop a file!"
+                maxlength="10000"
+            ></textarea>
+            <div class="drop-zone" id="dropZone">
+                <div class="drop-zone-content">
+                    <div class="drop-icon">📄</div>
+                    <p><strong>Drop your file here</strong></p>
+                    <p class="drop-hint">Supports: .txt, .md, .pdf, .docx</p>
+                </div>
+            </div>
+            <input type="file" id="fileInput" accept=".txt,.md,.pdf,.docx,text/*" style="display: none;">
+        </div>            <!-- Output Section -->
             <div class="workspace-panel">
                 <div class="panel-header">
                     <h3>Result</h3>

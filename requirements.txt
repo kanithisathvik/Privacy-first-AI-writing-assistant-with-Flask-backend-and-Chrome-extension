@@ -16,6 +16,7 @@ torch==2.1.2
 nltk==3.8.1
 spacy==3.7.2
 langdetect==1.0.9
+reportlab==4.0.7
 
 # API & Data
 requests==2.31.0

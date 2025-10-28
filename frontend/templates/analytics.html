@@ -1,0 +1,436 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics Dashboard - ContextGuard{% endblock %}
+
+{% block content %}
+<div class="analytics-container">
+    <!-- Header -->
+    <div class="analytics-header">
+        <h1>📊 Analytics Dashboard</h1>
+        <p>Track your productivity and learning progress</p>
+    </div>
+
+    <!-- User Stats Cards -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-content">
+                <h3 id="total-actions">0</h3>
+                <p>Total Actions</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">⏱️</div>
+            <div class="stat-content">
+                <h3 id="time-saved">0 min</h3>
+                <p>Time Saved</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🔥</div>
+            <div class="stat-content">
+                <h3 id="streak-days">0 days</h3>
+                <p>Current Streak</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+            <div class="stat-content">
+                <h3 id="user-level">Level 1</h3>
+                <p>Your Level</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Breakdown -->
+    <div class="analytics-section">
+        <h2>Action Breakdown</h2>
+        <div class="chart-container">
+            <canvas id="action-chart"></canvas>
+        </div>
+    </div>
+
+    <!-- Daily Activity -->
+    <div class="analytics-section">
+        <h2>Daily Activity</h2>
+        <div class="chart-container">
+            <canvas id="activity-chart"></canvas>
+        </div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="analytics-section">
+        <h2>🏆 Top Contributors</h2>
+        <div class="leaderboard">
+            <table id="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>User</th>
+                        <th>Level</th>
+                        <th>Actions</th>
+                        <th>Time Saved</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    <tr>
+                        <td colspan="5" class="loading">Loading leaderboard...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="analytics-section">
+        <h2>Recent Activity</h2>
+        <div class="activity-feed" id="activity-feed">
+            <p class="loading">Loading recent activity...</p>
+        </div>
+    </div>
+</div>
+
+<style>
+.analytics-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.analytics-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.analytics-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+}
+
+.stat-content h3 {
+    font-size: 2rem;
+    margin: 0;
+    color: #667eea;
+}
+
+.stat-content p {
+    margin: 0.25rem 0 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.analytics-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.analytics-section h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+}
+
+.leaderboard table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.leaderboard th {
+    background: #f8f9fa;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #333;
+}
+
+.leaderboard td {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.leaderboard tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.leaderboard .rank-1 {
+    background: linear-gradient(135deg, #ffd70020 0%, #ffd70010 100%);
+}
+
+.leaderboard .rank-2 {
+    background: linear-gradient(135deg, #c0c0c020 0%, #c0c0c010 100%);
+}
+
+.leaderboard .rank-3 {
+    background: linear-gradient(135deg, #cd7f3220 0%, #cd7f3210 100%);
+}
+
+.activity-feed {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    font-size: 1.5rem;
+}
+
+.activity-details {
+    flex: 1;
+}
+
+.activity-details h4 {
+    margin: 0;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.activity-details p {
+    margin: 0.25rem 0 0;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.activity-time {
+    color: #999;
+    font-size: 0.85rem;
+}
+
+.loading {
+    text-align: center;
+    color: #999;
+    padding: 2rem;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+// Get user ID from session or generate temporary one
+const userId = localStorage.getItem('contextguard_user_id') || `guest_${Date.now()}`;
+localStorage.setItem('contextguard_user_id', userId);
+
+// Load user statistics
+async function loadUserStats() {
+    try {
+        const response = await fetch(`/api/analytics/user/${userId}`);
+        const stats = await response.json();
+        
+        // Update stat cards
+        document.getElementById('total-actions').textContent = stats.total_actions || 0;
+        document.getElementById('time-saved').textContent = `${stats.time_saved || 0} min`;
+        document.getElementById('streak-days').textContent = `${stats.streak || 0} days`;
+        document.getElementById('user-level').textContent = `Level ${stats.level || 1}`;
+        
+        // Create action breakdown chart
+        createActionChart(stats.actions_by_type || {});
+        
+        // Create daily activity chart
+        createActivityChart(stats.daily_actions || []);
+        
+    } catch (error) {
+        console.error('Error loading stats:', error);
+    }
+}
+
+// Load leaderboard
+async function loadLeaderboard() {
+    try {
+        const response = await fetch('/api/analytics/leaderboard');
+        const data = await response.json();
+        
+        const tbody = document.getElementById('leaderboard-body');
+        tbody.innerHTML = '';
+        
+        if (data.leaderboard && data.leaderboard.length > 0) {
+            data.leaderboard.forEach((user, index) => {
+                const tr = document.createElement('tr');
+                tr.className = `rank-${index + 1}`;
+                tr.innerHTML = `
+                    <td><strong>#${index + 1}</strong></td>
+                    <td>${user.user_id === userId ? '👤 You' : `User ${user.user_id.slice(0, 8)}`}</td>
+                    <td>Level ${user.level}</td>
+                    <td>${user.total_actions}</td>
+                    <td>${user.time_saved} min</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        } else {
+            tbody.innerHTML = '<tr><td colspan="5" class="loading">No data yet. Start using ContextGuard to appear here!</td></tr>';
+        }
+        
+    } catch (error) {
+        console.error('Error loading leaderboard:', error);
+    }
+}
+
+// Create action breakdown chart
+function createActionChart(actionData) {
+    const ctx = document.getElementById('action-chart');
+    
+    const labels = Object.keys(actionData);
+    const data = Object.values(actionData);
+    
+    if (labels.length === 0) {
+        ctx.parentElement.innerHTML = '<p class="loading">No action data yet</p>';
+        return;
+    }
+    
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels.map(l => l.charAt(0).toUpperCase() + l.slice(1)),
+            datasets: [{
+                data: data,
+                backgroundColor: [
+                    '#667eea',
+                    '#764ba2',
+                    '#f093fb',
+                    '#4facfe',
+                    '#43e97b'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+}
+
+// Create daily activity chart
+function createActivityChart(dailyData) {
+    const ctx = document.getElementById('activity-chart');
+    
+    if (dailyData.length === 0) {
+        // Generate last 7 days with 0 data
+        const labels = [];
+        const data = [];
+        for (let i = 6; i >= 0; i--) {
+            const date = new Date();
+            date.setDate(date.getDate() - i);
+            labels.push(date.toLocaleDateString('en-US', { weekday: 'short' }));
+            data.push(0);
+        }
+        
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Actions',
+                    data: data,
+                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+        return;
+    }
+    
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: dailyData.map(d => d.date),
+            datasets: [{
+                label: 'Actions',
+                data: dailyData.map(d => d.count),
+                borderColor: '#667eea',
+                backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+// Load all data on page load
+document.addEventListener('DOMContentLoaded', () => {
+    loadUserStats();
+    loadLeaderboard();
+});
+</script>
+{% endblock %}

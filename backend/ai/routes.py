@@ -138,11 +138,74 @@ def generate_alt_text():
         return jsonify({'error': str(e), 'success': False}), 500
 
 
+@ai_bp.route('/eli5', methods=['POST'])
+def eli5():
+    """Explain Like I'm 5 endpoint"""
+    try:
+        data = request.get_json()
+        
+        if not data or 'text' not in data:
+            return jsonify({'error': 'Text is required'}), 400
+        
+        text = data.get('text', '').strip()
+        if len(text) < 10:
+            return jsonify({'error': 'Text too short'}), 400
+        
+        result = run_async(ai_processor.eli5(text))
+        return jsonify(result)
+        
+    except Exception as e:
+        logger.error(f"ELI5 endpoint error: {e}")
+        return jsonify({'error': str(e), 'success': False}), 500
+
+
+@ai_bp.route('/side-by-side-translate', methods=['POST'])
+def side_by_side_translate():
+    """Side-by-side translation endpoint"""
+    try:
+        data = request.get_json()
+        
+        if not data or 'text' not in data:
+            return jsonify({'error': 'Text is required'}), 400
+        
+        text = data.get('text', '').strip()
+        target_lang = data.get('targetLanguage', 'es')
+        
+        result = run_async(ai_processor.side_by_side_translate(text, target_lang))
+        return jsonify(result)
+        
+    except Exception as e:
+        logger.error(f"Side-by-side translation endpoint error: {e}")
+        return jsonify({'error': str(e), 'success': False}), 500
+
+
+@ai_bp.route('/generate-quiz', methods=['POST'])
+def generate_quiz():
+    """Generate quiz questions endpoint"""
+    try:
+        data = request.get_json()
+        
+        if not data or 'text' not in data:
+            return jsonify({'error': 'Text is required'}), 400
+        
+        text = data.get('text', '').strip()
+        options = {
+            'num_questions': data.get('num_questions', 5)
+        }
+        
+        result = run_async(ai_processor.generate_quiz(text, options))
+        return jsonify(result)
+        
+    except Exception as e:
+        logger.error(f"Quiz generation endpoint error: {e}")
+        return jsonify({'error': str(e), 'success': False}), 500
+
+
 @ai_bp.route('/status', methods=['GET'])
 def status():
     """Check AI service status"""
     return jsonify({
         'status': 'online',
         'gemini_available': ai_processor.gemini_available,
-        'methods': ['summarize', 'rewrite', 'proofread', 'translate', 'generate-alt-text']
+        'methods': ['summarize', 'rewrite', 'proofread', 'translate', 'generate-alt-text', 'eli5', 'side-by-side-translate', 'generate-quiz']
     })

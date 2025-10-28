@@ -243,6 +243,159 @@ Provide improved alt text:"""
                 'result': current_alt or "Image"
             }
     
+    async def eli5(self, text: str, options: Dict = None) -> Dict:
+        """Explain Like I'm 5 - Simplify text for beginners"""
+        try:
+            if self.gemini_available:
+                prompt = f"""Explain the following text in very simple terms, as if explaining to a 5-year-old child. Use simple words, short sentences, and everyday examples.
+
+Text: {text}
+
+Simple explanation:"""
+                
+                response = self.model.generate_content(prompt)
+                return {
+                    'success': True,
+                    'result': response.text,
+                    'method': 'gemini'
+                }
+            
+            # Fallback: Simple text simplification
+            simplified = self._simple_simplify(text)
+            return {
+                'success': True,
+                'result': simplified,
+                'method': 'basic'
+            }
+            
+        except Exception as e:
+            logger.error(f"ELI5 error: {e}")
+            return {
+                'success': False,
+                'error': str(e),
+                'result': text
+            }
+    
+    async def side_by_side_translate(self, text: str, target_lang: str, options: Dict = None) -> Dict:
+        """Translate with side-by-side comparison"""
+        try:
+            translation_result = await self.translate(text, target_lang, options)
+            
+            # Split into lines for side-by-side view
+            original_lines = text.split('\n')
+            translated_lines = translation_result.get('result', '').split('\n')
+            
+            # Align lines
+            aligned = []
+            max_lines = max(len(original_lines), len(translated_lines))
+            for i in range(max_lines):
+                original = original_lines[i] if i < len(original_lines) else ''
+                translated = translated_lines[i] if i < len(translated_lines) else ''
+                aligned.append({
+                    'original': original,
+                    'translated': translated
+                })
+            
+            return {
+                'success': True,
+                'aligned': aligned,
+                'original': text,
+                'translated': translation_result.get('result'),
+                'method': translation_result.get('method'),
+                'target_language': target_lang
+            }
+            
+        except Exception as e:
+            logger.error(f"Side-by-side translation error: {e}")
+            return {
+                'success': False,
+                'error': str(e)
+            }
+    
+    async def generate_quiz(self, text: str, options: Dict = None) -> Dict:
+        """Generate quiz questions from text"""
+        try:
+            options = options or {}
+            num_questions = options.get('num_questions', 5)
+            
+            if self.gemini_available:
+                prompt = f"""Generate {num_questions} multiple-choice quiz questions based on the following text. 
+Each question should have 4 options with one correct answer.
+Format as JSON array with structure: [{{"question": "...", "options": ["A", "B", "C", "D"], "correct": 0}}]
+
+Text: {text[:3000]}
+
+Quiz questions (JSON):"""
+                
+                response = self.model.generate_content(prompt)
+                import json
+                questions = json.loads(response.text)
+                
+                return {
+                    'success': True,
+                    'questions': questions,
+                    'method': 'gemini'
+                }
+            
+            # Fallback: Generate simple questions
+            questions = self._generate_simple_quiz(text, num_questions)
+            return {
+                'success': True,
+                'questions': questions,
+                'method': 'basic'
+            }
+            
+        except Exception as e:
+            logger.error(f"Quiz generation error: {e}")
+            return {
+                'success': False,
+                'error': str(e),
+                'questions': []
+            }
+    
+    def _simple_simplify(self, text: str) -> str:
+        """Basic text simplification"""
+        # Replace complex words with simpler ones
+        simplifications = {
+            'utilize': 'use',
+            'commence': 'start',
+            'terminate': 'end',
+            'approximately': 'about',
+            'consequently': 'so',
+            'therefore': 'so',
+            'however': 'but',
+            'nevertheless': 'but',
+            'additionally': 'also',
+            'furthermore': 'also'
+        }
+        
+        result = text
+        for complex_word, simple_word in simplifications.items():
+            result = re.sub(r'\b' + complex_word + r'\b', simple_word, result, flags=re.IGNORECASE)
+        
+        return result
+    
+    def _generate_simple_quiz(self, text: str, num_questions: int) -> list:
+        """Generate basic quiz questions from text"""
+        sentences = sent_tokenize(text)
+        questions = []
+        
+        for i, sentence in enumerate(sentences[:num_questions]):
+            words = sentence.split()
+            if len(words) > 5:
+                # Create fill-in-the-blank question
+                blank_index = len(words) // 2
+                correct_word = words[blank_index]
+                question_text = ' '.join(words[:blank_index] + ['_____'] + words[blank_index+1:])
+                
+                questions.append({
+                    'question': question_text,
+                    'options': [correct_word, 'option1', 'option2', 'option3'],
+                    'correct': 0
+                })
+        
+        return questions
+    
     # Fallback methods
     
     def _extractive_summarize(self, text: str, length: str = 'medium') -> str:
